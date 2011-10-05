@@ -1,2 +1,10 @@
 .rake_test_cache
 
+# A measure to prevent keys from being accidently checked in -- they should be
+# distributed to people as needed and kept in their HOME/.chef directory.
+.chef/*.pem
+
+# Always ignore the Chef-generated metadata.json files -- use the Ruby
+# equivalents to track our changes in version control, don't use knife edit
+metadata.json
+
