@@ -10,6 +10,7 @@ override_attributes(
 run_list(
   'recipe[apt]',
   'recipe[ubuntu]',
+  'recipe[chef-client::disable_sysv_init]',
   'role[base]'
 )
 
