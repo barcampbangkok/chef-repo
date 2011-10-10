@@ -57,10 +57,7 @@ migrate: { production: false }
 # System packages (i.e. non-pip) the app requires. Key is the Ubuntu package
 # name, value is a version specification (set false to use default).
 packages:
-  # Python Imaging Library requirements:
-  libfreetype6-dev: false
-  libjpeg-dev: false
-  zlib1g-dev: false
+  python-imaging: false
 
 # You can specify python packages to install with pip, but you shouldn't --
 # use requirements/production.txt for this and they'll be installed on deploy.
