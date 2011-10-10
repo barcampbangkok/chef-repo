@@ -5,6 +5,7 @@ run_list(
   'role[base-ubuntu]',
   'role[postgresql-server]',
   'recipe[build-essential]',    # For pip packages to build native extensions
-  'recipe[barcampbkk]'
+  'recipe[barcampbkk]',
+  'recipe[application]'
 )
 
