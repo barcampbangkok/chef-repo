@@ -9,6 +9,7 @@ cookbook_versions(
   'gunicorn'        => '1.0.0',
   'postgresql'      => '0.11.1',
   'python'          => '1.0.2',
+  'runit'           => '0.14.2',
   'ubuntu'          => '0.99.0'
 )
 
