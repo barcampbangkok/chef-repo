@@ -58,6 +58,7 @@ migrate: { production: false }
 # name, value is a version specification (set false to use default).
 packages:
   python-imaging: false
+  libpq-dev: false              # psycopg2 dep
 
 # You can specify python packages to install with pip, but you shouldn't --
 # use requirements/production.txt for this and they'll be installed on deploy.
