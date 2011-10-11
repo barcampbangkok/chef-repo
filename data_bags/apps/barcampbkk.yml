@@ -64,7 +64,7 @@ packages:
 # use requirements/production.txt for this and they'll be installed on deploy.
 pips: {}
 
-local_settings_file: settings/production.py
+local_settings_file: settings/secrets.py
 
 # Environment variables that will be set by runit
 env:
