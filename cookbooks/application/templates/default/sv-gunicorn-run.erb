@@ -3,8 +3,9 @@
 GUNICORN=<%= @options['virtualenv'] %>/bin/gunicorn_django
 ROOT=<%= @options['app']['deploy_to'] %>/current
 CONFIG=/etc/gunicorn/<%= @options['app']['id'] %>.py
+ENVDIR=<%= "#{node[:runit][:service_dir]}/#{@options['app']['id']}" %>/env
 
 cd $ROOT
 
 exec 2>&1
-exec chpst -u <%= @options['app']['owner'] %>:<%= @options['app']['group'] %> $GUNICORN -c $CONFIG
+exec chpst -u <%= @options['app']['owner'] %>:<%= @options['app']['group'] %> -e $ENVDIR $GUNICORN -c $CONFIG

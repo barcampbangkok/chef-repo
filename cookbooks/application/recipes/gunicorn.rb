@@ -42,6 +42,7 @@ end
 runit_service app['id'] do
   template_name 'gunicorn'
   cookbook 'application'
+  env app['env'] if app['env']
   options('app' => app, 'virtualenv' => ve.path)
   run_restart false
 end

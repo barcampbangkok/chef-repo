@@ -66,3 +66,8 @@ pips: {}
 
 local_settings_file: settings/production.py
 
+# Environment variables that will be set by runit
+env:
+  PYTHON_PATH: /srv/
+  DJANGO_SETTINGS_MODULE: barcampbkk.settings.production
+
