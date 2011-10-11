@@ -32,8 +32,7 @@ databases:
     adapter: postgresql_psycopg2
     port: 5432
     encoding: utf8
-    username: test
-    password: test
+    username: barcampbkk
 
 # Deployment Setup
 #
@@ -68,6 +67,8 @@ local_settings_file: settings/secrets.py
 
 # Environment variables that will be set by runit
 env:
-  PYTHON_PATH: /srv/
-  DJANGO_SETTINGS_MODULE: barcampbkk.settings.production
+  # This is a little strange because of the directory structure of deployed
+  # releases and the 'current' symlink.
+  PYTHONPATH: /srv/barcampbkk/
+  DJANGO_SETTINGS_MODULE: current.settings.production
 
