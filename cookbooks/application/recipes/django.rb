@@ -48,6 +48,19 @@ directory "#{app['deploy_to']}/shared" do
   recursive true
 end
 
+# Like the Capistrano variable of the same name -- create additional
+# directories in shared to link data preserved across releases
+if app['shared_children']
+  app['shared_children'].each do |dir|
+    directory "#{app['deploy_to']}/shared/#{dir}" do
+      owner app['owner']
+      group app['group']
+      mode '0755'
+      recursive true
+    end
+  end
+end
+
 ## Create a virtualenv for the app
 ve = python_virtualenv app['id'] do
   path "#{app['deploy_to']}/shared/env"
@@ -151,7 +164,7 @@ deploy_revision app['id'] do
   shallow_clone true
   purge_before_symlink([])
   create_dirs_before_symlink([])
-  symlinks({})
+  symlinks app['symlinks'] ? app['symlinks'] : {}
   before_migrate do
     requirements_file = nil
     # look for requirements.txt files in common locations

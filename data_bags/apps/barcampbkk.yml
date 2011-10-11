@@ -72,3 +72,12 @@ env:
   PYTHONPATH: /srv/barcampbkk/
   DJANGO_SETTINGS_MODULE: current.settings.production
 
+# Extra directories to create under /srv/barcampbkk/shared
+shared_children: [ logs ]
+
+# Hash specifying symlinks that will be created from dirs in the shared
+# directory (named by the hash key) into the app directory for each release
+# (named by the value). This is essentially to preserve data between deployed
+# releases.
+symlinks: { logs: logs }
+
