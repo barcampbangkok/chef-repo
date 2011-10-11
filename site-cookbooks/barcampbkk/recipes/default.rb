@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+include_recipe 'nginx'
+
 # We deploy from git, so install it!
 # The official Opscode git cookbook sets a dependency on runit, which isn't
 # really required unless setting up a git server, so just install it ourselves.
@@ -24,4 +26,20 @@ case node[:platform]
 when 'debian', 'ubuntu'
   package 'git-core'
 end
+
+#
+# nginx - proxies Django requests to gunicorn, and serves static assets
+#
+template "#{node[:nginx][:dir]}/sites-available/barcampbkk" do
+  source "nginx-barcampbkk.conf.erb"
+  owner "root"
+  group "root"
+  mode 0644
+end
+
+nginx_site 'default' do
+  enable false
+end
+
+nginx_site 'barcampbkk'
 

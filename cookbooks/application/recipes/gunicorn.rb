@@ -29,9 +29,17 @@ node.default[:gunicorn][:preload_app] = false
 node.default[:gunicorn][:worker_processes] = [node[:cpu][:total].to_i * 4, 8].min
 node.default[:gunicorn][:server_hooks] = {:pre_fork => 'import time;time.sleep(1)'}
 node.default[:gunicorn][:port] = '8080'
+node.default[:gunicorn][:sockets_dir] = '/var/run/gunicorn'
+node.default[:gunicorn][:listen] = "unix:#{node[:gunicorn][:sockets_dir]}/#{app['id']}.sock"
+
+directory node[:gunicorn][:sockets_dir] do
+  owner app['owner']
+  group app['group']
+  mode '0755'
+end
 
 gunicorn_config "/etc/gunicorn/#{app['id']}.py" do
-  listen "#{node[:ipaddress]}:#{node[:gunicorn][:port]}"
+  listen node[:gunicorn][:listen]
   worker_timeout node[:gunicorn][:worker_timeout] 
   preload_app node[:gunicorn][:preload_app] 
   worker_processes node[:gunicorn][:worker_processes]
