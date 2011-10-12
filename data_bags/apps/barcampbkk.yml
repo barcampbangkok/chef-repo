@@ -4,6 +4,8 @@
 
 id: barcampbkk
 
+admin_email: webdev@barcampbangkok.org
+
 # This defines which roles can be applied to a node in order for the
 # application cookbook to further act on it
 server_roles: [ app ]
