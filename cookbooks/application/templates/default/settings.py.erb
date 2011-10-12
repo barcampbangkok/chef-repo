@@ -33,3 +33,11 @@ EMAIL_HOST_USER = '<%= @mail['user'] %>'
 EMAIL_HOST_PASSWORD = '<%= @secrets['mail']['password'] %>'
 EMAIL_USE_TLS = <%= @mail['use_tls'] ? 'True' : 'False' %>
 
+<% if @secrets['apis'] && @secrets['apis']['twitter'] %>
+<% twitter = @secrets['apis']['twitter'] %>
+TWITTER_CONSUMER_KEY = '<%= twitter['consumer_key'] %>'
+TWITTER_CONSUMER_SECRET_KEY = '<%= twitter['consumer_secret_key'] %>'
+TWITTER_ACCESS_TOKEN = '<%= twitter['access_token'] %>'
+TWITTER_ACCESS_TOKEN_SECRET = '<%= twitter['access_token_secret'] %>'
+<% end %>
+
