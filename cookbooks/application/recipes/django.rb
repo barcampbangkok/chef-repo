@@ -159,6 +159,9 @@ end
 
 ## Then, deploy
 deploy_revision app['id'] do
+  python_bin   = ::File.join(ve.path, 'bin', 'python')
+  django_admin = ::File.join(ve.path, 'bin', 'django-admin.py')
+
   revision app['revision'][node.chef_environment]
   repository app['repository']
   user app['owner']
@@ -194,10 +197,11 @@ deploy_revision app['id'] do
 
   if app['migrate'][node.chef_environment] && node[:apps][app['id']][node.chef_environment][:run_migrations]
     migrate true
-    migration_command app['migration_command'] || "#{::File.join(ve.path, "bin", "python")} manage.py migrate"
+    migration_command app['migration_command'] || "#{python_bin} manage.py migrate"
   else
     migrate false
   end
+
   before_symlink do
     ruby_block "remove_run_migrations" do
       block do
@@ -208,4 +212,14 @@ deploy_revision app['id'] do
       end
     end
   end
+
+  before_restart do
+    Chef::Log.info "Linking static assets with collectstatic"
+    execute "#{django_admin} collectstatic --link --noinput" do
+      user app['owner']
+      cwd release_path
+      environment app['env']
+    end
+  end
 end
+
