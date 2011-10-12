@@ -21,6 +21,9 @@ app = node.run_state[:current_app]
 
 include_recipe "python"
 
+mailconfig = Chef::DataBagItem.load('services', 'mail')[app['id']]
+secrets = Chef::EncryptedDataBagItem.load('secrets', app['id'])
+
 ###
 # You really most likely don't want to run this recipe from here - let the
 # default application recipe work it's mojo for you.
@@ -144,7 +147,9 @@ if app["database_master_role"]
       variables(
         :host => (dbm.attribute?('cloud') ? dbm['cloud']['local_ipv4'] : dbm['ipaddress']),
         :database => app['databases'][node.chef_environment],
-        :django_version => django_version
+        :django_version => django_version,
+        :secrets => secrets,
+        :mail => mailconfig
       )
     end
   else

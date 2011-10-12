@@ -1,6 +1,7 @@
 <%
-  mail = Chef::DataBagItem.load('services', 'mail')['barcampbkk']
-  secrets = Chef::EncryptedDataBagItem.load('secrets', 'barcampbkk')
+  # Override host if we are the master DB server (empty string Django with
+  # Postgres means use Unix domain socket)
+  @host = '' if @host == node[:ipaddress]
 %>
 
 <% if @django_version >= 1.2 -%>
@@ -9,7 +10,7 @@ DATABASES = {
         'NAME': '<%= @database['database'] %>',
         'ENGINE': 'django.db.backends.<%= @database['adapter'] %>',
         'USER': '<%= @database['username'] %>',
-        'PASSWORD': '<%= secrets['database']['password'] %>',
+        'PASSWORD': '<%= @secrets['database']['password'] %>',
         'HOST': '<%= @host %>',
         'PORT': '<%= @database['port']  %>'
     }
@@ -18,17 +19,17 @@ DATABASES = {
 DATABASE_ENGINE = '<%= @database['adapter'] %>'
 DATABASE_NAME = '<%= @database['database'] %>'
 DATABASE_USER = '<%= @database['username'] %>'
-DATABASE_PASSWORD = '<%= secrets['database']['password'] %>'
+DATABASE_PASSWORD = '<%= @secrets['database']['password'] %>'
 DATABASE_HOST = '<%= @host %>'
 DATABASE_PORT = '<%= @database['port']  %>'
 <% end -%>
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '<%= secrets['django_secret_key'] %>'
+SECRET_KEY = '<%= @secrets['django_secret_key'] %>'
 
-EMAIL_HOST = '<%= mail['host'] %>'
-EMAIL_PORT = <%= mail['port'] %>
-EMAIL_HOST_USER = '<%= mail['user'] %>'
-EMAIL_HOST_PASSWORD = '<%= secrets['mail']['password'] %>'
-EMAIL_USE_TLS = <%= mail['use_tls'] ? 'True' : 'False' %>
+EMAIL_HOST = '<%= @mail['host'] %>'
+EMAIL_PORT = <%= @mail['port'] %>
+EMAIL_HOST_USER = '<%= @mail['user'] %>'
+EMAIL_HOST_PASSWORD = '<%= @secrets['mail']['password'] %>'
+EMAIL_USE_TLS = <%= @mail['use_tls'] ? 'True' : 'False' %>
 

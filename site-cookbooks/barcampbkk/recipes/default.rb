@@ -28,6 +28,23 @@ when 'debian', 'ubuntu'
 end
 
 #
+# PostgreSQL database
+#
+# The 'application' cookbook is intended to integrate with the 'database'
+# cookbook, which doesn't currently support Postgres, so we set things up
+# ourselves.
+#
+# Postgres' IDENT authentication is enabled by default, so system user names
+# map to Postgres users -- we just need to create the Postgres user, not worry
+# about setting a password.
+#
+postgresql_user 'barcamp'
+
+postgresql_database "barcampbkk_#{node.chef_environment}" do
+  owner 'barcamp'
+end
+
+#
 # nginx - proxies Django requests to gunicorn, and serves static assets
 #
 template "#{node[:nginx][:dir]}/sites-available/barcampbkk" do
