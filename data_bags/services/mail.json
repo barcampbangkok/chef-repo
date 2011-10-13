@@ -2,10 +2,10 @@
   "id": "mail",
 
   "barcampbkk": {
-    "host": "smtp.gmail.com",
-    "port": 587,
-    "user": "test",
-    "use_tls": true
+    "host": "localhost",
+    "port": 25,
+    "user": "",
+    "use_tls": false
   }
 }
 
