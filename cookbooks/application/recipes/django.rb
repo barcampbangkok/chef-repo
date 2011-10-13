@@ -215,7 +215,7 @@ deploy_revision app['id'] do
 
   before_restart do
     Chef::Log.info "Linking static assets with collectstatic"
-    execute "#{django_admin} collectstatic --link --noinput" do
+    execute "#{django_admin} collectstatic --noinput" do
       user app['owner']
       cwd release_path
       environment app['env']
