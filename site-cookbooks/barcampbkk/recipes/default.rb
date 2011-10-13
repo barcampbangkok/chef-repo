@@ -18,6 +18,9 @@
 #
 
 include_recipe 'nginx'
+include_recipe 'barcampbkk::appuser'
+
+appuser = node[:barcampbkk][:appuser]
 
 # We deploy from git, so install it!
 # The official Opscode git cookbook sets a dependency on runit, which isn't
@@ -38,10 +41,10 @@ end
 # map to Postgres users -- we just need to create the Postgres user, not worry
 # about setting a password.
 #
-postgresql_user 'barcamp'
+postgresql_user appuser
 
 postgresql_database "barcampbkk_#{node.chef_environment}" do
-  owner 'barcamp'
+  owner appuser
 end
 
 #
