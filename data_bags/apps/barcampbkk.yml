@@ -50,7 +50,7 @@ group: barcamp
 # Unneeded since the repo is public
 # deploy_key: 'SSH private key used to deploy from a private git repository'
 
-revision: { production: deployment }
+revision: { production: master }
 force: { production: false }
 migrate: { production: false }
 
