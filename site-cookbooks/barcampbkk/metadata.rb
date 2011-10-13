@@ -11,7 +11,13 @@ recipe           'db_bootstrap', 'First-time deployment database content initial
 
 attribute 'barcampbkk/appuser',
   :display_name => 'Barcamp BKK app user',
-  :recipes => %w[ barcampbkk ],
+  :recipes => %w[ barcampbkk, barcampbkk::appuser ],
   :default => 'barcamp',
   :description => 'User name that the Barcamp BKK app will run under'
+
+attribute 'barcampbkk/static_root',
+  :display_name => 'Static assets root',
+  :recipes => %w[ barcampbkk ],
+  :default => '/var/www/barcampbangkok.org',
+  :description => 'Site root where Django will aggregate static assets'
 

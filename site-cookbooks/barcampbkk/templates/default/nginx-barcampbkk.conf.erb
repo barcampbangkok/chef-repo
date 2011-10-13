@@ -10,7 +10,7 @@ server {
     keepalive_timeout 5;
 
     # path for static files
-    root /srv/barcampbkk/current/site_media/static;
+    root <%= @static_root %>;
 
     location / {
         # checks for static file, if not found proxy to app

@@ -18,4 +18,5 @@
 #
 
 default[:barcampbkk][:appuser] = 'barcamp'
+default[:barcampbkk][:static_root] = '/var/www/barcampbangkok.org'
 

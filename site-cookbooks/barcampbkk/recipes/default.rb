@@ -17,6 +17,12 @@
 # limitations under the License.
 #
 
+##
+# At this point this cookbook assumes an all-in-one server architecture for the
+# app, i.e. a web server and database server are set up on the same node here.
+# I doubt we'll ever need to scale beyond this, but Chef roles can be put to
+# better use if that time comes :-)
+
 include_recipe 'nginx'
 include_recipe 'barcampbkk::appuser'
 
@@ -54,7 +60,16 @@ template "#{node[:nginx][:dir]}/sites-available/barcampbkk" do
   source "nginx-barcampbkk.conf.erb"
   owner "root"
   group "root"
-  mode 0644
+  mode "0644"
+  variables :static_root => node[:barcampbkk][:static_root]
+  notifies :reload, "service[nginx]"
+end
+
+# This will be targeted by Django's collectstatic (STATIC_ROOT)
+directory node[:barcampbkk][:static_root] do
+  owner appuser
+  group appuser
+  mode '0755'
 end
 
 nginx_site 'default' do
