@@ -62,7 +62,6 @@ template "#{node[:nginx][:dir]}/sites-available/barcampbkk" do
   group "root"
   mode "0644"
   variables :static_root => node[:barcampbkk][:static_root]
-  notifies :reload, "service[nginx]"
 end
 
 # This will be targeted by Django's collectstatic (STATIC_ROOT)

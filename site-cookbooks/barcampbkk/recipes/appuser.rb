@@ -23,17 +23,15 @@ appuser = node[:barcampbkk][:appuser]
 home_dir = "/home/#{appuser}"
 ssh_keys = data_bag_item('pubkeys', 'barcampbkk')
 
-group appuser do
-  gid 1001
-end
-
 user appuser do
-  uid 1001
-  gid 1001
   comment 'Barcamp Bangkok'
   shell '/bin/bash'
   supports :manage_home => true
   home home_dir
+end
+
+group appuser do
+  members [ appuser ]
 end
 
 directory "#{home_dir}/.ssh" do
