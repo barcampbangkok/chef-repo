@@ -8,3 +8,6 @@
 # equivalents to track our changes in version control, don't use knife edit
 metadata.json
 
+# I like to keep a clone of the GitHub wiki here.
+wiki
+

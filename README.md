@@ -1,3 +1,22 @@
+Chef for BarCamp
+================
+
+For the benefit of newcomers to Chef, the original README from [Opscode's
+starter chef-repo][] is left intact below, and others can be found in
+subdirectories of the project to give some explanation about the significance of
+each. These are nice to browse on GitHub where the Markdown formatting is
+rendered as you click through directories. Please see [this project's wiki][]
+for a guide to getting started with our project specifically, and pointers for
+learning more about Chef.
+
+One guideline for our project that I'll make note of here until more are fleshed
+out somewhere: please, please learn and adopt [knife-github-cookbooks][] for
+managing vendor cookbooks!
+
+[Opscode's starter chef-repo]: https://github.com/opscode/chef-repo
+[this project's wiki]: https://github.com/barcampbangkok/chef-repo/wiki
+[knife-github-cookbooks]: https://github.com/websterclay/knife-github-cookbooks
+
 Overview
 ========
 
